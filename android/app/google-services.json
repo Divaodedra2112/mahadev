@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "966794752914",
+    "project_id": "authflow-c558c",
+    "storage_bucket": "authflow-c558c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966794752914:android:1b43a399f33f3f961c074b",
+        "android_client_info": {
+          "package_name": "com.mahadev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "966794752914-8ndabcqfntjnoravj6icbgevsld7p45s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mahadev",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "966794752914-gmogr5mfpmn5786jl527df1cf3qi56pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVNt-Irc5h991hEHBqm9dlqmo-o7fIgrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "966794752914-gmogr5mfpmn5786jl527df1cf3qi56pf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
