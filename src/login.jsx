@@ -68,7 +68,8 @@ const signIn = async () => {
       <Button title='Login with googe' onPress={()=>{signIn()}}/>
       <Button title='Login' onPress={()=>{login()}}/>
 
-      <Button title='sign up' onPress={()=>{navigation.navigate('signup')}}/>
+      <Button title="Go to Chat" onPress={() => navigation.navigate('Chat')} />
+
 
     
     </View>
