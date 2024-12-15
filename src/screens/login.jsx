@@ -79,10 +79,10 @@ const Login = () => {
           <Text style={styles.backButtonText}>{'<'}</Text>
         </TouchableOpacity>)}
 
-
         <View style={styles.SignInbuttonText}>
           <Text style={styles.title}>Sign in</Text>
         </View>
+        
         {!isEmailSubmitted ? (
           <>
             <TextInput
@@ -118,7 +118,6 @@ const Login = () => {
             </TouchableOpacity>
           </>
         )}
-      {/* </View> */}
     </View>
   );
 };
