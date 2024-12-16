@@ -1,10 +1,11 @@
-import {  Alert } from 'react-native';
-import React, {  useState } from 'react';
+import { Alert } from 'react-native';
+import React, { useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import BasicInfo from '../components/SignUpComponents/BasicInfo';
 import AdditionalInfo from '../components/SignUpComponents/AdditionalInfo';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+import { serverTimestamp } from '@react-native-firebase/firestore';
 
 
 const Signup = () => {
@@ -19,138 +20,128 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  
-  // const handleCreate = async () => {
-  //   console.log('Attempting to create account...');
-  //   console.log('firstName: ', firstName);
-  //   console.log('lastName: ', lastName);
-  //   console.log('email: ', email);
-  //   console.log('password: ', password);
-  //   console.log('gender: ', gender);
-  //   console.log('ageRange: ', ageRange);
 
-  //   if (!email || !password || !firstName || !lastName || !gender || !ageRange) {
-  //     Alert.alert('Error', 'Please fill all the fields!');
-  //     return;
-  //   }
+//  const handleCreate = async () => {
+//     if (!email || !password || !firstName || !lastName || !gender || !ageRange) {
+//       Alert.alert('Error', 'Please fill all the fields!');
+//       return;
+//     }
 
-  //   try {
-      
-  //     const userCredential = await auth().createUserWithEmailAndPassword(email, password);
-  //     const userId = userCredential.user.uid;
+//     setLoading(true);
+
+//     try {
+//       console.log('Creating user...');
+//       const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+//       const userId = userCredential.user.uid;
+
+//       console.log('User created:', userCredential);
+//       console.log('User ID:', userId);
+
+//       console.log('Saving user data to Firestore...');
+//       await firestore().collection('users').doc(userId).set({
+//         firstName,
+//         lastName,
+//         gender,
+//         ageRange,
+//         email,
+//         createdAt: firestore.FieldValue.serverTimestamp(),
+//       });
+
+//       console.log('User data saved successfully.');
+
+//       console.log('Showing success alert...');
+//       Alert.alert('Success', 'Account created successfully!', [
+//         {
+//           text: 'OK',
+//           onPress: () => {
+//             console.log('Navigating to login screen');
+//             navigation.navigate('login');
+//           },
+//         },
+//       ]);
+//     } catch (error) {
+//       console.error('Error occurred:', error);
+//       let errorMessage = 'An unexpected error occurred!';
+//       if (error.code === 'auth/email-already-in-use') {
+//         errorMessage = 'That email address is already in use!';
+//       } else if (error.code === 'auth/invalid-email') {
+//         errorMessage = 'That email address is invalid!';
+//       } else if (error.code === 'auth/weak-password') {
+//         errorMessage = 'Password should be at least 6 characters!';
+//       } else if (error.message) {
+//         errorMessage = error.message; 
+//       }
+//       Alert.alert('Error', errorMessage);
+//     } finally {
+//       console.log('Resetting loader...');
+//       setLoading(false);
+//     }
+//   };
 
 
 
-  //     console.log('userCredential',userCredential)
-  //     console.log('userId',userId)
+const handleCreate = async () => {
+  if (!email || !password || !firstName || !lastName || !gender || !ageRange) {
+    Alert.alert('Error', 'Please fill all the fields!');
+    return;
+  }
 
-      
-  //     await firestore().collection('users').doc(userId).set({
-  //       firstName,
-  //       lastName,
-  //       gender,
-  //       ageRange,
-  //       email,
-  //       createdAt: firestore.FieldValue.serverTimestamp(),
-  //     }).then(()=>
-  //     {
-        
-  //   navigation.navigate('login')
-  //       Alert.alert('Success', 'Account created successfully!');
-  //     }
-  //     );
+  setLoading(true);
 
-  //   } catch (error) {
-  //     console.error(error);
-  //     let errorMessage = 'An unexpected error occurred!';
-  //     if (error.code === 'auth/email-already-in-use') {
-  //       errorMessage = 'That email address is already in use!';
-  //     } else if (error.code === 'auth/invalid-email') {
-  //       errorMessage = 'That email address is invalid!';
-  //     } else if (error.code === 'auth/weak-password') {
-  //       errorMessage = 'Password should be at least 6 characters!';
-  //     }
-  //     Alert.alert('Error', errorMessage);
-      
-  //   }
-  // };
+  try {
+    console.log('Creating user...');
+    const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+    const userId = userCredential.user.uid;
 
- 
-  const handleCreate = async () => {
-    if (!email || !password || !firstName || !lastName || !gender || !ageRange) {
-      Alert.alert('Error', 'Please fill all the fields!');
-      return;
-    }
-  
-    setLoading(true); 
-  
-    try {
-      console.log('Creating user...');
-      const userCredential = await auth().createUserWithEmailAndPassword(email, password);
-      const userId = userCredential.user.uid;
-  
-      console.log('User created:', userCredential);
-      console.log('User ID:', userId);
-  
-      console.log('Saving user data to Firestore...');
-      await firestore().collection('users').doc(userId).set({
-        firstName,
-        lastName,
-        gender,
-        ageRange,
-        email,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-      });
-  
-      console.log('User data saved successfully.');
-  
-      // Alert and Navigation
-      console.log('Showing success alert...');
-      Alert.alert('Success', 'Account created successfully!', [
-        {
-          text: 'OK',
-          onPress: () => {
-            console.log('Navigating to login screen');
-            navigation.navigate('login');
-          },
+    console.log('User created successfully:', userCredential);
+
+    console.log('Saving user data to Firestore...');
+    await firestore().collection('users').doc(userId).set({
+      firstName,
+      lastName,
+      gender,
+      ageRange,
+      email,
+      createdAt: serverTimestamp(), 
+    });
+
+    console.log('User data saved successfully to Firestore.');
+
+    Alert.alert('Success', 'Account created successfully!', [
+      {
+        text: 'OK',
+        onPress: () => {
+          console.log('Navigating to login screen...');
+          navigation.navigate('login');
         },
-      ]);
-    } catch (error) {
-      console.error('Error occurred:', error);
-      let errorMessage = 'An unexpected error occurred!';
-      if (error.code === 'auth/email-already-in-use') {
-        errorMessage = 'That email address is already in use!';
-      } else if (error.code === 'auth/invalid-email') {
-        errorMessage = 'That email address is invalid!';
-      } else if (error.code === 'auth/weak-password') {
-        errorMessage = 'Password should be at least 6 characters!';
-      } else if (error.message) {
-        errorMessage = error.message; // Fallback to any unexpected error message
-      }
-      Alert.alert('Error', errorMessage);
-    } finally {
-      console.log('Resetting loader...');
-      setLoading(false); 
+      },
+    ]);
+  } catch (error) {
+    console.error('Error occurred:', error);
+    let errorMessage = 'An unexpected error occurred!';
+    if (error.code === 'auth/email-already-in-use') {
+      errorMessage = 'That email address is already in use!';
+    } else if (error.code === 'auth/invalid-email') {
+      errorMessage = 'That email address is invalid!';
+    } else if (error.code === 'auth/weak-password') {
+      errorMessage = 'Password should be at least 6 characters!';
+    } else if (error.message) {
+      errorMessage = error.message;
     }
-  };
-  
-  
-  
-  
-  
 
- 
- 
-  const goToBasicInfo = () => {
+    Alert.alert('Error', errorMessage);
+  } finally {
+    console.log('Resetting loader...');
+    setLoading(false);
+  }
+};
+
+ const goToBasicInfo = () => {
     setCurrentStep(1);
   };
 
   return (
-
-
-    
-  
-    currentStep === 1 ? (
+  currentStep === 1 ? (
       <BasicInfo
         setFirstName={setFirstName}
         setLastName={setLastName}
