@@ -51,10 +51,12 @@ const Home = () => {
       <View style={styles.topRow}>
         {/* Profile Image */}
         <View style={styles.profileContainer}>
-          <Image
-            source={{ uri: 'https://via.placeholder.com/50' }}
-            style={styles.profilePhoto}
-          />
+          
+
+<Image
+                source={require('../assests/images/profile.jpg')}
+                style={styles.profilePhoto}
+              />
         </View>
 
         {/* Gender Dropdown */}
@@ -181,8 +183,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profilePhoto: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 25, 
   },
   dropdownContainer: {
