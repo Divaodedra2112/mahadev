@@ -1,21 +1,18 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Image, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
-// import Icon from '@react-native-vector-icons/Fontawesome';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
-// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailSubmitted, setIsEmailSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   const handleEmailSubmit = () => {
@@ -32,21 +29,23 @@ const Login = () => {
       navigation.goBack();
     }
   };
-  const login = () => {
-    console.log('kkkkkkk')
+
+const login = () => {
     if (password.trim() === '') {
       Alert.alert('Error', 'Please enter your password.');
       return;
     }
 
-    console.log('email, password: ', email, password);
+    setLoading(true); 
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        setLoading(false); 
         Alert.alert('Success', 'Login successfully!');
-        // navigation.navigate('HomeTabs');
+        navigation.navigate('HomeTabs');
       })
       .catch((error) => {
+        setLoading(false); 
         console.log(error);
         Alert.alert('Error', error.message);
       });
@@ -79,45 +78,65 @@ const Login = () => {
           <Text style={styles.backButtonText}>{'<'}</Text>
         </TouchableOpacity>)}
 
-        <View style={styles.SignInbuttonText}>
-          <Text style={styles.title}>Sign in</Text>
-        </View>
-        
-        {!isEmailSubmitted ? (
-          <>
-            <TextInput
-              style={[styles.input, { fontSize: 16 }]} 
-              placeholder="Email Address"
-              onChangeText={setEmail}
-              value={email}
-              keyboardType="email-address"
-              backgroundColor="#f4f4f4"
-            />
-            <TouchableOpacity style={styles.button} onPress={handleEmailSubmit}>
-              <Text style={styles.buttonText}>Continue</Text>
-            </TouchableOpacity>
-            <View style={styles.CreateoneText}>
-              <Text onPress={() => navigation.navigate('Signup')} style={styles.text}>Don't have an account?<Text style={styles.createone}> Create one</Text></Text>
+      <View style={styles.SignInbuttonText}>
+        <Text style={styles.title}>Sign in</Text>
+      </View>
+
+      {!isEmailSubmitted ? (
+        <>
+          <TextInput
+            style={[styles.input, { fontSize: 16 }]}
+            placeholder="Email Address"
+            onChangeText={setEmail}
+            value={email}
+            keyboardType="email-address"
+            backgroundColor="#f4f4f4"
+          />
+          <TouchableOpacity style={styles.button} onPress={handleEmailSubmit}>
+            <Text style={styles.buttonText}>Continue</Text>
+          </TouchableOpacity>
+          <View style={styles.CreateoneText}>
+            <Text onPress={() => navigation.navigate('Signup')} style={styles.text}>Don't have an account?<Text style={styles.createone}> Create one</Text></Text>
+          </View>
+          <TouchableOpacity style={styles.googleButton} onPress={signIn}>
+            <View style={styles.googleview}>
+              <Image
+                source={require('../assests/images/Logo-google-icon-PNG.png')}
+                style={styles.googleIcon}
+              />
             </View>
-            <TouchableOpacity style={styles.googleButton} onPress={signIn}>
+
+            <View style={styles.googleText}>
               <Text style={styles.googleButtonText}>Continue With Google</Text>
-            </TouchableOpacity>
-          </>
-        ) : (
-          <>
-            <TextInput
-              style={[styles.input, { fontSize: 16 }]} 
-              placeholder="Password"
-              onChangeText={setPassword}
-              value={password}
-              secureTextEntry
-              backgroundColor="#f4f4f4"
-            />
-            <TouchableOpacity style={styles.button} onPress={login}>
+
+            </View>
+
+          </TouchableOpacity>
+
+        </>
+      ) : (
+        <>
+          <TextInput
+            style={[styles.input, { fontSize: 16 }]}
+            placeholder="Password"
+            onChangeText={setPassword}
+            value={password}
+            secureTextEntry
+            backgroundColor="#f4f4f4"
+          />
+         
+               <TouchableOpacity
+            style={[styles.button, loading && styles.disabledButton]}
+            onPress={loading ? null : login} 
+          >
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
               <Text style={styles.buttonText}>Continue</Text>
-            </TouchableOpacity>
-          </>
-        )}
+            )}
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
@@ -140,7 +159,7 @@ const styles = StyleSheet.create({
     color: '#896ce7',
   },
   googleIcon: {
-    marginRight: 10, // Space between icon and text
+    marginRight: 10,
   },
   container: {
     backgroundColor: "white",
@@ -180,7 +199,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     marginBottom: 16,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   buttonText: {
     color: '#fff',
@@ -189,7 +209,7 @@ const styles = StyleSheet.create({
   },
   googleButtonText: {
     color: '#000',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   SignInbuttonText: {
@@ -217,6 +237,19 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     marginBottom: 16,
+  },
+  googleIcon: {
+    width: 25,
+    height: 25,
+    alignSelf: 'baseline',
+    marginLeft: 20
+  },
+  googleview: {
+    flex: 1
+  },
+  googleText: { flex: 3},
+  disabledButton: {
+    backgroundColor: '#b3a7df', 
   },
 });
 

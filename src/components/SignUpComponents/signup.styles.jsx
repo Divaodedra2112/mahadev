@@ -59,6 +59,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 8,
   },
+  labelText: {
+    fontSize: 16,
+    fontWeight: '400',
+    marginBottom: 8,
+  },
+  agebox:{marginTop:20},
   genderContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
