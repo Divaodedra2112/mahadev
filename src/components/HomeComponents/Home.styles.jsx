@@ -102,9 +102,9 @@ const HomeStyles = StyleSheet.create({
     alignItems: 'center',
   },
   productBox: {
-    width: screenWidth * 0.42,
+    width: screenWidth * 0.40,
     padding: 10,
-    marginRight: 16,
+    marginRight: 14,
     backgroundColor: '#f5f5f5',
     borderRadius: 12,
     position: 'relative',
@@ -143,6 +143,9 @@ const HomeStyles = StyleSheet.create({
     fontSize: 18,
     color: 'purple',
     fontWeight: 'bold',
+  },
+  scrollContainer: {
+    // paddingHorizontal: 10,
   },
 });
 

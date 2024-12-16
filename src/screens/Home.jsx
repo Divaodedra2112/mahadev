@@ -4,7 +4,8 @@ import { Dimensions } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import styles from '../components/Home.styles';
+import styles from '../components/HomeComponents/Home.styles';
+import ProductSection from '../components/HomeComponents/HomeProducts';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -28,14 +29,29 @@ const products = [
     id: 2,
     name: 'Running Shoes',
     price: '$60',
-    image: require('../assests/images/red.jpeg'), 
+    image: require('../assests/images/red.jpeg'),
   },
   {
     id: 3,
     name: 'Leather Bag',
     price: '$120',
     image: require('../assests/images/bag.jpeg'),
-  }
+  },
+];
+
+const newProducts = [
+  {
+    id: 4,
+    name: 'New T-Shirt',
+    price: '$30',
+    image: require('../assests/images/red.jpeg'),
+  },
+  {
+    id: 5,
+    name: 'Stylish Hat',
+    price: '$25',
+    image: require('../assests/images/red.jpeg'),
+  },
 ];
 
 const Home = () => {
@@ -109,59 +125,11 @@ const Home = () => {
         ))}
       </ScrollView>
 
-      {/* Top Selling */}
-      <View style={styles.row}>
-        <Text style={styles.rowTitle}>Top Selling</Text>
-        <Text style={styles.seeAll}>See All</Text>
-      </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {products.map((product) => (
-          <View key={product.id} style={styles.productBox}>
-            <TouchableOpacity style={styles.likeIcon}>
-                <Fontisto name="heart-alt" size={20} color="#000" />
+    
 
-            </TouchableOpacity>
-          
+<ProductSection title="Top Selling" products={products} />
 
-
-<Image
-  source={product.image}
-  style={styles.productImage}
-  resizeMode="contain"
-/>
-
-            <Text style={styles.productName}>{product.name}</Text>
-            <Text style={styles.productPrice}>{product.price}</Text>
-          </View>
-        ))}
-      </ScrollView>
-
-      {/* New In */}
-      <View style={styles.row}>
-        <Text style={styles.rowTitleNew}>New In</Text>
-        <Text style={styles.seeAll}>See All</Text>
-      </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {products.map((product) => (
-          <View key={product.id} style={styles.productBox}>
-            <TouchableOpacity style={styles.likeIcon}>
-              <Text>
-              <Fontisto name="heart-alt" size={20} color="fff" />
-              </Text>
-            </TouchableOpacity>
-        
-<Image
-  source={product.image}
-  style={styles.productImage}
-  resizeMode="contain"
-/>
-
-
-            <Text style={styles.productName}>{product.name}</Text>
-            <Text style={styles.productPrice}>{product.price}</Text>
-          </View>
-        ))}
-      </ScrollView>
+<ProductSection title="New In" products={newProducts} rowTitleStyle={styles.rowTitleNew} />
     </ScrollView>
   );
 };
