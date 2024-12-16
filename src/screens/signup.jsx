@@ -6,6 +6,9 @@ import AdditionalInfo from '../components/SignUpComponents/AdditionalInfo';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { serverTimestamp } from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 
 const Signup = () => {
@@ -21,62 +24,6 @@ const Signup = () => {
   const navigation = useNavigation();
 
 
-//  const handleCreate = async () => {
-//     if (!email || !password || !firstName || !lastName || !gender || !ageRange) {
-//       Alert.alert('Error', 'Please fill all the fields!');
-//       return;
-//     }
-
-//     setLoading(true);
-
-//     try {
-//       console.log('Creating user...');
-//       const userCredential = await auth().createUserWithEmailAndPassword(email, password);
-//       const userId = userCredential.user.uid;
-
-//       console.log('User created:', userCredential);
-//       console.log('User ID:', userId);
-
-//       console.log('Saving user data to Firestore...');
-//       await firestore().collection('users').doc(userId).set({
-//         firstName,
-//         lastName,
-//         gender,
-//         ageRange,
-//         email,
-//         createdAt: firestore.FieldValue.serverTimestamp(),
-//       });
-
-//       console.log('User data saved successfully.');
-
-//       console.log('Showing success alert...');
-//       Alert.alert('Success', 'Account created successfully!', [
-//         {
-//           text: 'OK',
-//           onPress: () => {
-//             console.log('Navigating to login screen');
-//             navigation.navigate('login');
-//           },
-//         },
-//       ]);
-//     } catch (error) {
-//       console.error('Error occurred:', error);
-//       let errorMessage = 'An unexpected error occurred!';
-//       if (error.code === 'auth/email-already-in-use') {
-//         errorMessage = 'That email address is already in use!';
-//       } else if (error.code === 'auth/invalid-email') {
-//         errorMessage = 'That email address is invalid!';
-//       } else if (error.code === 'auth/weak-password') {
-//         errorMessage = 'Password should be at least 6 characters!';
-//       } else if (error.message) {
-//         errorMessage = error.message; 
-//       }
-//       Alert.alert('Error', errorMessage);
-//     } finally {
-//       console.log('Resetting loader...');
-//       setLoading(false);
-//     }
-//   };
 
 
 
@@ -95,27 +42,20 @@ const handleCreate = async () => {
 
     console.log('User created successfully:', userCredential);
 
-    console.log('Saving user data to Firestore...');
-    await firestore().collection('users').doc(userId).set({
+    const userData = {
+      userId,
       firstName,
       lastName,
       gender,
       ageRange,
       email,
-      createdAt: serverTimestamp(), 
-    });
+      createdAt: new Date().toISOString(), 
+    };
 
-    console.log('User data saved successfully to Firestore.');
+    await AsyncStorage.setItem('userData', JSON.stringify(userData));
+  Alert.alert('Success', 'Account created successfully!');
 
-    Alert.alert('Success', 'Account created successfully!', [
-      {
-        text: 'OK',
-        onPress: () => {
-          console.log('Navigating to login screen...');
-          navigation.navigate('login');
-        },
-      },
-    ]);
+    setTimeout(() => navigation.navigate('Login'), 1500); 
   } catch (error) {
     console.error('Error occurred:', error);
     let errorMessage = 'An unexpected error occurred!';
@@ -135,6 +75,7 @@ const handleCreate = async () => {
     setLoading(false);
   }
 };
+
 
  const goToBasicInfo = () => {
     setCurrentStep(1);
