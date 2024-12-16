@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { Dimensions } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Ionicons'; 
+import Icon from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import styles from '../components/Home.styles';
+
 
 const screenWidth = Dimensions.get('window').width;
-// console.log(Icon.getRawGlyphMap());
 
 const categories = [
   { id: 1, name: 'Hoodies', icon: '👕' },
@@ -20,20 +22,20 @@ const products = [
     id: 1,
     name: 'Red Hoodie',
     price: '$40',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6i_orjlehrBcJmqTIqrihCOXcyAn_akCcJg&s',
+    image: require('../assests/images/profile.jpg'),
   },
   {
     id: 2,
     name: 'Running Shoes',
     price: '$60',
-    image: 'https://images.unsplash.com/photo-1597892657493-6847b9640bac?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cnVubmluZyUyMHNob2VzfGVufDB8fDB8fHww',
+    image: require('../assests/images/red.jpeg'), 
   },
   {
     id: 3,
     name: 'Leather Bag',
     price: '$120',
-    image: 'https://images.unsplash.com/photo-1597892657493-6847b9640bac?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cnVubmluZyUyMHNob2VzfGVufDB8fDB8fHww',
-  },
+    image: require('../assests/images/bag.jpeg'),
+  }
 ];
 
 const Home = () => {
@@ -51,12 +53,10 @@ const Home = () => {
       <View style={styles.topRow}>
         {/* Profile Image */}
         <View style={styles.profileContainer}>
-          
-
-<Image
-                source={require('../assests/images/profile.jpg')}
-                style={styles.profilePhoto}
-              />
+          <Image
+            source={require('../assests/images/profile.jpg')}
+            style={styles.profilePhoto}
+          />
         </View>
 
         {/* Gender Dropdown */}
@@ -76,13 +76,14 @@ const Home = () => {
 
         {/* Cart Icon */}
         <TouchableOpacity style={styles.cart}>
-          <Text style={styles.cartText}>🛒</Text>
+          <Icon name="bag-handle-outline" size={25} color="#fff" />
         </TouchableOpacity>
       </View>
 
       {/* Search Box */}
       <View style={styles.searchBox}>
-        <Text style={styles.searchIcon}>🔍</Text>
+        <Icon name="search-outline" size={25} color="#000" />
+
         <TextInput
           style={styles.searchInput}
           placeholder="Search products..."
@@ -117,17 +118,18 @@ const Home = () => {
         {products.map((product) => (
           <View key={product.id} style={styles.productBox}>
             <TouchableOpacity style={styles.likeIcon}>
-              <Text>
-              <Icon name="heart" size={20} color="#888" />
+                <Fontisto name="heart-alt" size={20} color="#000" />
 
-              {/* Gray heart icon wrapped inside Text */}
-              </Text>
             </TouchableOpacity>
-            <Image
-              source={{ uri: product.image }}
-              style={styles.productImage}
-              resizeMode="contain"
-            />
+          
+
+
+<Image
+  source={product.image}
+  style={styles.productImage}
+  resizeMode="contain"
+/>
+
             <Text style={styles.productName}>{product.name}</Text>
             <Text style={styles.productPrice}>{product.price}</Text>
           </View>
@@ -144,14 +146,17 @@ const Home = () => {
           <View key={product.id} style={styles.productBox}>
             <TouchableOpacity style={styles.likeIcon}>
               <Text>
-                <Icon name="heart" size={20} color="#888" />  {/* Gray heart icon wrapped inside Text */}
+              <Fontisto name="heart-alt" size={20} color="fff" />
               </Text>
             </TouchableOpacity>
-            <Image
-              source={{ uri: product.image }}
-              style={styles.productImage}
-              resizeMode="contain"
-            />
+        
+<Image
+  source={product.image}
+  style={styles.productImage}
+  resizeMode="contain"
+/>
+
+
             <Text style={styles.productName}>{product.name}</Text>
             <Text style={styles.productPrice}>{product.price}</Text>
           </View>
@@ -161,158 +166,6 @@ const Home = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
-    marginTop:30
-  },
-  topRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-  profileContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#f0f0f0', 
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePhoto: {
-    width: 40,
-    height: 40,
-    borderRadius: 25, 
-  },
-  dropdownContainer: {
-    flex: 1,
-    marginHorizontal: 75,
-    borderRadius:60,
-  },
-  dropdown: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: '#ccc',
-  },
-  dropdownBox: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-  },
-  cart: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#f5f5f5',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cartText: {
-    fontSize: 24,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-    marginTop:10
-  },
-  rowTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  seeAll: {
-    fontSize: 14,
-    color: '#000',
-    fontWeight:'bold'
-  },
-  categoryList: {
-    marginBottom: 16,
-  },
-  categoryItem: {
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  categoryCircle: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: '#f5f5f5',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  categoryIcon: {
-    fontSize: 30,
-  },
-  categoryName: {
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  likeIcon: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    backgroundColor: '#fff',
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 2,
-  },
-  productBox: {
-    width: screenWidth * 0.42,
-    padding: 10,
-    marginRight: 16,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    position: 'relative',
-    aspectRatio: 3 / 4,
-  },
-  productImage: {
-    width: '100%',
-    height: '70%',
-    borderRadius: 8,
-  },
-  productName: {
-    fontSize: 16,
-    marginVertical: 4,
-    textAlign: 'center',
-  },
-  productPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  searchBox: {
-    marginBottom: 16,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop:5
-  },
-  searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
-    color: '#333',
-  },
-  searchIcon: {
-    fontSize: 20,
-    marginRight: 8,
-    color: '#888',
-  },
-  rowTitleNew:{ fontSize: 18,
-    color: 'purple',
-    fontWeight:'bold'}
-});
+
 
 export default Home;

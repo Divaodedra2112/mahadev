@@ -43,7 +43,7 @@ const HomeTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: 'purple',  
+        tabBarActiveTintColor: '#896ce7',  
         tabBarInactiveTintColor: 'gray',  
       }}
     >
