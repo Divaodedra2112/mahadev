@@ -18,7 +18,7 @@ const ProductSection = ({ title, products, rowTitleStyle }) => {
         {products.map((product) => (
           <View key={product.id} style={styles.productBox}>
             <TouchableOpacity style={styles.likeIcon}>
-              <Fontisto name="heart-alt" size={20} color="#000" />
+              <Fontisto name="heart-alt" size={15} color="#000" />
             </TouchableOpacity>
 
             <Image

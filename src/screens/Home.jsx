@@ -21,13 +21,13 @@ const categories = [
 const products = [
   {
     id: 1,
-    name: 'Red Hoodie',
+    name: 'Full Pair',
     price: '$40',
     image: require('../assests/images/profile.jpg'),
   },
   {
     id: 2,
-    name: 'Running Shoes',
+    name: 'Red hudie',
     price: '$60',
     image: require('../assests/images/red.jpeg'),
   },
@@ -42,24 +42,25 @@ const products = [
 const newProducts = [
   {
     id: 4,
-    name: 'New T-Shirt',
+    name: 'Leather Bag',
+    name: '',
     price: '$30',
-    image: require('../assests/images/red.jpeg'),
+    image: require('../assests/images/bag1.jpeg'),
   },
   {
     id: 5,
-    name: 'Stylish Hat',
+    name: 'Stylish Leather Bag ',
     price: '$25',
-    image: require('../assests/images/red.jpeg'),
+    image: require('../assests/images/bag2.jpeg'),
   },
 ];
 
 const Home = () => {
-  const [selectedGender, setSelectedGender] = useState('male');
+  const [selectedGender, setSelectedGender] = useState('men');
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [items, setItems] = useState([
-    { label: 'Male', value: 'male' },
+    { label: 'Men', value: 'men' },
     { label: 'Female', value: 'female' },
     { label: 'Other', value: 'other' },
   ]);
@@ -70,7 +71,7 @@ const Home = () => {
         {/* Profile Image */}
         <View style={styles.profileContainer}>
           <Image
-            source={require('../assests/images/profile.jpg')}
+            source={require('../assests/images/profile1.jpg')}
             style={styles.profilePhoto}
           />
         </View>
@@ -102,7 +103,7 @@ const Home = () => {
 
         <TextInput
           style={styles.searchInput}
-          placeholder="Search products..."
+          placeholder="Search "
           value={searchQuery}
           onChangeText={setSearchQuery}
         />

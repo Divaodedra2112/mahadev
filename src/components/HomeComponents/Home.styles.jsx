@@ -29,15 +29,15 @@ const HomeStyles = StyleSheet.create({
     borderRadius: 25,
   },
   dropdownContainer: {
-    flex: 1,
-    marginHorizontal: 75,
-    borderRadius: 60,
+    borderRadius: 70,
+    width:'30%'
   },
   dropdown: {
     backgroundColor: '#f5f5f5',
-    borderRadius: 15,
+    borderRadius: 25,
     borderWidth: 1,
     borderColor: '#ccc',
+    
   },
   dropdownBox: {
     backgroundColor: '#fff',
@@ -58,7 +58,7 @@ const HomeStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 15,
-    marginTop: 15,
+    marginTop: 20,
   },
   rowTitle: {
     fontSize: 18,
@@ -94,13 +94,13 @@ const HomeStyles = StyleSheet.create({
   },
   likeIcon: {
     position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    top: 10, 
+    right: 10, 
+    zIndex: 2, 
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+    borderRadius: 20,
+    padding: 5,
+},
   productBox: {
     width: screenWidth * 0.40,
     padding: 10,
@@ -135,13 +135,15 @@ const HomeStyles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    height: 40,
     fontSize: 16,
-    color: '#333',
+    color: '#0000',
+    fontWeight: 'bold',
+    marginLeft:10
+
   },
   rowTitleNew: {
     fontSize: 18,
-    color: 'purple',
+    color: '#896ce7',
     fontWeight: 'bold',
   },
   scrollContainer: {
